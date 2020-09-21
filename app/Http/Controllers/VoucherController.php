@@ -28,7 +28,7 @@ class VoucherController extends Controller{
         
         $voucher = Voucher::where('code', '=', $code)->whereHas("cliente" , function($q) use ($email){
             $q->where('email', '=', $email);
-        }])->with('oferta')->first();    
+        })->with('oferta')->first();    
 
         if ($voucher){              
             if ($voucher->dt_utilizacao)
