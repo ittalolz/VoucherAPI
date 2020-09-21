@@ -14,3 +14,17 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('vouchers', [
+    'as' => 'vouchers', 'uses' => 'VoucherController@show'
+]);
+
+$router->post('useVoucher', [
+    'as' => 'useVoucher', 'uses' => 'VoucherController@useVoucher'
+]);
+
+//CADASTRAR OFERTAS - PARAMETROS - 
+//nome - porcentagem - dt_expiracao
+$router->post('cadastraOferta', [
+    'as' => 'ofertas', 'uses' => 'OfertaController@store'
+]);
