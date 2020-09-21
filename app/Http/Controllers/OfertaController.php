@@ -16,19 +16,22 @@ class OfertaController extends Controller{
     }
     
     public function store(Request $request){                
-        $nome = $request->nome;
-        $porcentagem = $request->porcentagem;
-        $dt_expiracao = dataBRtoDate($request->dt_expiracao);
-
+        $messages = [
+            'required' => 'O campo :attribute é obrigatório',            
+        ];
         $validator = Validator::make($request->all(), [
             'nome' => 'required',
             'porcentagem' => 'required',
             'dt_expiracao' => 'required'
-        ]);        
+        ], $messages);        
         
         if($validator->fails()){
-            return response()->json(array('sucesso' => false, 'mensagem' => 'Parametros inválidos.'), 400);
+            return response()->json(array('sucesso' => false, 'mensagem' => 'Parametros inválidos.', 'erros' => $validator->errors()), 400);
         }
+
+        $nome = $request->nome;
+        $porcentagem = $request->porcentagem;
+        $dt_expiracao = dataBRtoDate($request->dt_expiracao);
         
         $oferta = new Oferta();
         $oferta->nome = $nome;

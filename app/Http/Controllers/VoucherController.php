@@ -20,13 +20,16 @@ class VoucherController extends Controller{
 
 
     public function useVoucher(Request $request){
+        $messages = [
+            'required' => 'O campo :attribute é obrigatório',            
+        ];
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'code' => 'required',            
-        ]);        
+        ], $messages);        
         
         if($validator->fails()){
-            return response()->json(array('sucesso' => false, 'Mensagem' => 'Parametros inválidos'), 400);
+            return response()->json(array('sucesso' => false, 'Mensagem' => 'Parametros inválidos', 'erros' => $validator->errors()), 400);
         }  
         
         $email = $request->email;
