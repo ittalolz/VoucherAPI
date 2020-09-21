@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Oferta;
 use App\Cliente;
 use App\Voucher;
@@ -19,7 +20,13 @@ class OfertaController extends Controller{
         $porcentagem = $request->porcentagem;
         $dt_expiracao = dataBRtoDate($request->dt_expiracao);
 
-        if(empty($nome) || empty($porcentagem) || empty($dt_expiracao)){
+        $validator = Validator::make($request->all(), [
+            'nome' => 'required',
+            'porcentagem' => 'required',
+            'dt_expiracao' => 'required'
+        ]);        
+        
+        if($validator->fails()){
             return response()->json(array('sucesso' => false, 'mensagem' => 'Parametros inválidos.'), 400);
         }
         

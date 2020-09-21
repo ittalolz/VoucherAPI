@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Voucher;
 
 class VoucherController extends Controller{
@@ -19,12 +20,18 @@ class VoucherController extends Controller{
 
 
     public function useVoucher(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'code' => 'required',            
+        ]);        
+        
+        if($validator->fails()){
+            return response()->json(array('sucesso' => false, 'Mensagem' => 'Parametros inválidos'), 400);
+        }  
+        
         $email = $request->email;
         $code = $request->code;
-        
-        if (is_null($email) || is_null($code)){
-            return response()->json(array('sucesso' => false, 'Mensagem' => 'Parametros inválidos'), 400);
-        }        
+                      
         
         $voucher = Voucher::where('code', '=', $code)->whereHas("cliente" , function($q) use ($email){
             $q->where('email', '=', $email);
