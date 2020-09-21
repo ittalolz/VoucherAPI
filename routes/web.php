@@ -16,7 +16,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('vouchers', [
-    'as' => 'vouchers', 'uses' => 'VoucherController@index'
+    'as' => 'vouchers', 'uses' => 'VoucherController@show'
 ]);
 
 $router->post('useVoucher', [

@@ -7,10 +7,14 @@ use App\Voucher;
 
 class VoucherController extends Controller{
     
-    public function index(){
-        $vouchers = new Voucher();
+    public function show(Request $request){
+        $email = $request->email;
 
-        return $vouchers->with('cliente')->with('oferta')->get();
+        $vouchers = Voucher::whereHas("cliente" , function($q) use ($email){
+            $q->where('email', '=', $email);
+        })->with('oferta')->get();
+
+        return response()->json($vouchers, 200);
     }
 
 
@@ -22,8 +26,8 @@ class VoucherController extends Controller{
             return response()->json(array('sucesso' => false, 'Mensagem' => 'Parametros inválidos'), 400);
         }        
         
-        $voucher = Voucher::where('code', '=', $code)->with(["cliente" => function($q) use ($email){
-            return $q->where('email', '=', $email);
+        $voucher = Voucher::where('code', '=', $code)->whereHas("cliente" , function($q) use ($email){
+            $q->where('email', '=', $email);
         }])->with('oferta')->first();    
 
         if ($voucher){              
