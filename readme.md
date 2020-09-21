@@ -58,3 +58,9 @@ curl -X POST \
   http://localhost:8000/useVoucher \
   -d '{"code": "ABCDEFGH", "email": "email@teste.com"}'
 ```
+
+### Teste
+
+```sh
+vendor/bin/phpunit --filter=CadastrarOfertaTest
+```
