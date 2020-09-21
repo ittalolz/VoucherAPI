@@ -15,7 +15,7 @@ composer install
 Banco: api_voucher<br>
 usuario: root<br>
 senha :</p>
-<p class="has-line-data" data-line-start="28" data-line-end="29">Executar o migrate</p>
+<p class="has-line-data" data-line-start="28" data-line-end="29">Executar o migrate e iniciar o server</p>
 <pre><code class="has-line-data" data-line-start="31" data-line-end="34" class="language-sh">php artisan migrate
 php -S localhost:<span class="hljs-number">8000</span> -t public
 </code></pre>
