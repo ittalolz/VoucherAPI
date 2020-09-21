@@ -26,7 +26,7 @@ Banco: api_voucher
 usuario: root
 senha :
 
-Executar o migrate
+Executar o migrate e iniciar o servidor
 
 ```sh
 php artisan migrate
@@ -58,4 +58,3 @@ curl -X POST \
   http://localhost:8000/useVoucher \
   -d '{"code": "ABCDEFGH", "email": "email@teste.com"}'
 ```
-
